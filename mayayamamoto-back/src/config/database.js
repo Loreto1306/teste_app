@@ -103,12 +103,16 @@ function initDatabase() {
           log_id          INTEGER PRIMARY KEY AUTOINCREMENT,
           prescription_id INTEGER NOT NULL,
           patient_id      INTEGER NOT NULL,
+          exercise_id     INTEGER,           -- Adicionado: ID direto do exercício
+          series          INTEGER DEFAULT 0, -- Adicionado: número de séries
+          repetitions     INTEGER DEFAULT 0, -- Adicionado: número de repetições
           pain_level      INTEGER DEFAULT 0,
-          mobility_level  INTEGER DEFAULT 5, -- Adicionado: escala 0-10
+          mobility_level  INTEGER DEFAULT 5,
           observations    TEXT,
           executed_at     TEXT NOT NULL DEFAULT (datetime('now','localtime')),
           FOREIGN KEY (prescription_id) REFERENCES prescriptions(prescription_id),
-          FOREIGN KEY (patient_id)      REFERENCES patients(patient_id)
+          FOREIGN KEY (patient_id)      REFERENCES patients(patient_id),
+          FOREIGN KEY (exercise_id)     REFERENCES exercises(exercise_id)
         )
       `);
 
